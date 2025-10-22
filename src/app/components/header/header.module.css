@@ -1,0 +1,117 @@
+/* ===== HEADER ===== */
+.header {
+  /* Variáveis locais (aplicadas só neste componente) */
+  --color-bg-dark: #190019;
+  --color-bg-secondary: #2B124C;
+  --color-accent: #522B5B;
+  --color-hover: #854F6C;
+  --color-text-light: #DFB6B2;
+  --color-highlight: #FBE4D8;
+
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-light);
+  width: 100%;
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== CONTAINER ===== */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ===== LOGO ===== */
+.logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--color-text-light);
+}
+
+/* ===== NAVBAR ===== */
+.nav {
+  display: flex;
+  gap: 2.8rem;
+}
+
+.link {
+  color: var(--color-highlight);
+  text-decoration: none;
+  font-weight: 400;
+  transition: color 0.3s;
+}
+
+.link:hover {
+  color: var(--color-text-light);
+}
+
+/* ===== BOTÃO HAMBURGUER ===== */
+.menuToggle {
+  display: none;
+}
+
+.menuButton {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.bar {
+  width: 100%;
+  height: 3px;
+  background-color: var(--color-highlight);
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .menuButton {
+    display: flex;
+  }
+
+  .nav {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--color-bg-dark);
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    transform: translateY(-120%);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  /* Menu visível quando o checkbox está marcado */
+  .menuToggle:checked ~ .nav {
+    transform: translateY(0);
+  }
+
+  /* Animação do botão hamburguer para X */
+  .menuToggle:checked + .menuButton .bar:nth-child(1) {
+    transform: rotate(45deg) translateY(8px);
+  }
+
+  .menuToggle:checked + .menuButton .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menuToggle:checked + .menuButton .bar:nth-child(3) {
+    transform: rotate(-45deg) translateY(-8px);
+  }
+
+  .nav .link {
+    font-size: 1.2rem;
+  }
+}

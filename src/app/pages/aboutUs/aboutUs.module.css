@@ -1,0 +1,81 @@
+.container {
+  --cor-1: #190019;
+  --cor-2: #2b124c;
+  --cor-3: #522b5b;
+  --cor-4: #854f6c;
+  --cor-5: #dfb6b2;
+  --cor-6: #fbe4d8;
+
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 60px;
+  background: linear-gradient(160deg, var(--cor-2), var(--cor-3));
+  color: var(--cor-6);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  line-height: 1.8;
+  font-family: "Poppins", sans-serif;
+}
+
+
+/* ====== Cabeçalho ====== */
+.header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--cor-6);
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: var(--cor-5);
+}
+
+/* ====== Conteúdo ====== */
+.content {
+  font-size: 1.1rem;
+  text-align: justify;
+  color: var(--cor-6);
+}
+
+.content p {
+  margin-bottom: 20px;
+}
+
+.link {
+  color: var(--cor-5);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: var(--cor-6);
+  text-decoration: underline;
+}
+
+/* ====== Rodapé ====== */
+.footer {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.backButton {
+  display: inline-block;
+  color: var(--cor-5);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 10px 20px;
+  border: 1px solid var(--cor-5);
+  border-radius: 12px;
+  transition: all 0.25s ease;
+}
+
+.backButton:hover {
+  background-color: var(--cor-4);
+  border-color: var(--cor-4);
+  color: var(--cor-6);
+}
