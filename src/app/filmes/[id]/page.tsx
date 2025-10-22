@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
   };
 }
 
-// Props corrigidas
+// Props corretas para App Router
 type Props = {
   params: { id: string };
 };
@@ -38,22 +38,17 @@ type Props = {
 export default async function DetalheFilme({ params }: Props) {
   const { id } = params;
 
-  // Corrigido: trata undefined retornado por getMovieDetails
+  // Garante que filme seja Filme ou null
   const filme: Filme | null = (await getMovieDetails(Number(id))) || null;
-
   if (!filme) return notFound();
 
-  const formatarData = (data?: string) => {
-    if (!data) return "Data não disponível";
-    return new Date(data).toLocaleDateString('pt-BR');
-  };
+  const formatarData = (data?: string) =>
+    data ? new Date(data).toLocaleDateString("pt-BR") : "Data não disponível";
 
-  const formatarDuracao = (runtime?: number) => {
-    if (!runtime) return "Duração não disponível";
-    return `${runtime} minutos`;
-  };
+  const formatarDuracao = (runtime?: number) =>
+    runtime ? `${runtime} minutos` : "Duração não disponível";
 
-  // Garante array vazio caso genres seja undefined
+  // Garante array vazio se genres for undefined
   const genres = filme.genres || [];
 
   return (
@@ -78,9 +73,7 @@ export default async function DetalheFilme({ params }: Props) {
           <div className={styles.header}>
             <h1 className={styles.titulo}>{filme.title}</h1>
 
-            {filme.tagline && (
-              <p className={styles.tagline}>&quot;{filme.tagline}&quot;</p>
-            )}
+            {filme.tagline && <p className={styles.tagline}>&quot;{filme.tagline}&quot;</p>}
 
             <div className={styles.metaInfo}>
               <div className={`${styles.metaItem} ${styles.rating}`}>
@@ -88,10 +81,12 @@ export default async function DetalheFilme({ params }: Props) {
                 <strong>{filme.vote_average?.toFixed(1)}</strong>
                 <span className={styles.voteCount}> | {filme.vote_count} votos</span>
               </div>
+
               <div className={styles.metaItem}>
                 <CalendarIcon className={`${styles.icon} ${styles.iconCalendar}`} />
                 <strong>{formatarData(filme.release_date)}</strong>
               </div>
+
               {filme.runtime && (
                 <div className={styles.metaItem}>
                   <ClockIcon className={`${styles.icon} ${styles.iconClock}`} />
@@ -116,16 +111,13 @@ export default async function DetalheFilme({ params }: Props) {
               <BookIcon className={styles.icon} />
               Sinopse
             </h3>
-            <p className={styles.descricao}>
-              {filme.overview || "Descrição não disponível."}
-            </p>
+            <p className={styles.descricao}>{filme.overview || "Descrição não disponível."}</p>
           </div>
 
           <div className={styles.detalhesGrid}>
             <div className={styles.detalheItem}>
               <div className={styles.detalheLabel}>
-                <IDIcon className={styles.icon} />
-                ID do Filme
+                <IDIcon className={styles.icon} /> ID do Filme
               </div>
               <div className={styles.detalheValor}>{filme.id}</div>
             </div>
@@ -133,8 +125,7 @@ export default async function DetalheFilme({ params }: Props) {
             {filme.status && (
               <div className={styles.detalheItem}>
                 <div className={styles.detalheLabel}>
-                  <ChartIcon className={styles.icon} />
-                  Status
+                  <ChartIcon className={styles.icon} /> Status
                 </div>
                 <div className={styles.detalheValor}>{filme.status}</div>
               </div>
@@ -143,8 +134,7 @@ export default async function DetalheFilme({ params }: Props) {
             {filme.original_language && (
               <div className={styles.detalheItem}>
                 <div className={styles.detalheLabel}>
-                  <LanguageIcon className={styles.icon} />
-                  Idioma Original
+                  <LanguageIcon className={styles.icon} /> Idioma Original
                 </div>
                 <div className={styles.detalheValor}>
                   {filme.original_language.toUpperCase()}
@@ -155,13 +145,12 @@ export default async function DetalheFilme({ params }: Props) {
             {filme.budget > 0 && (
               <div className={styles.detalheItem}>
                 <div className={styles.detalheLabel}>
-                  <MoneyIcon className={styles.icon} />
-                  Orçamento
+                  <MoneyIcon className={styles.icon} /> Orçamento
                 </div>
                 <div className={styles.detalheValor}>
-                  {filme.budget.toLocaleString('en-US', {
-                    style: 'currency',
-                    currency: 'USD'
+                  {filme.budget.toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "USD",
                   })}
                 </div>
               </div>
@@ -170,13 +159,12 @@ export default async function DetalheFilme({ params }: Props) {
             {filme.revenue > 0 && (
               <div className={styles.detalheItem}>
                 <div className={styles.detalheLabel}>
-                  <MoneyIcon className={styles.icon} />
-                  Receita
+                  <MoneyIcon className={styles.icon} /> Receita
                 </div>
                 <div className={styles.detalheValor}>
-                  {filme.revenue.toLocaleString('en-US', {
-                    style: 'currency',
-                    currency: 'USD'
+                  {filme.revenue.toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "USD",
                   })}
                 </div>
               </div>
