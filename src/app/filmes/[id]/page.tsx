@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import styles from "./MovieDetails.module.css";
 import { getMovieDetails } from "@/lib/api/services";
-import { Filme } from "@/types/types";
 import { 
   StarIcon, 
   CalendarIcon, 
@@ -15,6 +14,7 @@ import {
   MoneyIcon 
 } from "../../components/Icons/Icons";
 
+// Metadata dinâmico
 export async function generateMetadata({ params }: { params: { id: string } }) {
   const filme = await getMovieDetails(Number(params.id));
 
@@ -31,8 +31,11 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
   };
 }
 
+// Tipagem correta para App Router Next.js 15
 type Props = {
-  params: { id: string };
+  params: {
+    id: string;
+  };
 };
 
 export default async function DetalheFilme({ params }: Props) {
@@ -43,7 +46,7 @@ export default async function DetalheFilme({ params }: Props) {
 
   const formatarData = (data?: string) => {
     if (!data) return "Data não disponível";
-    return new Date(data).toLocaleDateString('pt-BR');
+    return new Date(data).toLocaleDateString("pt-BR");
   };
 
   const formatarDuracao = (runtime?: number) => {
@@ -81,13 +84,15 @@ export default async function DetalheFilme({ params }: Props) {
               <div className={`${styles.metaItem} ${styles.rating}`}>
                 <StarIcon className={`${styles.icon} ${styles.iconStar}`} />
                 <strong>{filme.vote_average?.toFixed(1)}</strong>
-                <span className={styles.voteCount}> | {filme.vote_count ?? 0} votos</span>
+                <span className={styles.voteCount}> | {filme.vote_count} votos</span>
               </div>
+
               <div className={styles.metaItem}>
                 <CalendarIcon className={`${styles.icon} ${styles.iconCalendar}`} />
                 <strong>{formatarData(filme.release_date)}</strong>
               </div>
-              {filme.runtime !== undefined && (
+
+              {filme.runtime && (
                 <div className={styles.metaItem}>
                   <ClockIcon className={`${styles.icon} ${styles.iconClock}`} />
                   <strong>{formatarDuracao(filme.runtime)}</strong>
@@ -95,7 +100,7 @@ export default async function DetalheFilme({ params }: Props) {
               )}
             </div>
 
-            {filme.genres?.length ? (
+            {filme.genres && filme.genres.length > 0 && (
               <div className={styles.genres}>
                 {filme.genres.map((genre) => (
                   <span key={genre.id} className={styles.genre}>
@@ -103,7 +108,7 @@ export default async function DetalheFilme({ params }: Props) {
                   </span>
                 ))}
               </div>
-            ) : null}
+            )}
           </div>
 
           <div className={styles.sinopseSection}>
@@ -154,9 +159,9 @@ export default async function DetalheFilme({ params }: Props) {
                   Orçamento
                 </div>
                 <div className={styles.detalheValor}>
-                  {filme.budget.toLocaleString('en-US', {
-                    style: 'currency',
-                    currency: 'USD'
+                  {filme.budget.toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "USD",
                   })}
                 </div>
               </div>
@@ -169,16 +174,16 @@ export default async function DetalheFilme({ params }: Props) {
                   Receita
                 </div>
                 <div className={styles.detalheValor}>
-                  {filme.revenue.toLocaleString('en-US', {
-                    style: 'currency',
-                    currency: 'USD'
+                  {filme.revenue.toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "USD",
                   })}
                 </div>
               </div>
             )}
           </div>
 
-          {filme.production_companies?.length ? (
+          {filme.production_companies && filme.production_companies.length > 0 && (
             <div className={styles.production}>
               <h3 className={styles.sectionTitle}>Produção</h3>
               <div className={styles.productionList}>
@@ -189,7 +194,7 @@ export default async function DetalheFilme({ params }: Props) {
                 ))}
               </div>
             </div>
-          ) : null}
+          )}
         </div>
       </section>
     </main>
