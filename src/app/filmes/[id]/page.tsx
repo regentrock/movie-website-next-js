@@ -81,13 +81,13 @@ export default async function DetalheFilme({ params }: Props) {
               <div className={`${styles.metaItem} ${styles.rating}`}>
                 <StarIcon className={`${styles.icon} ${styles.iconStar}`} />
                 <strong>{filme.vote_average?.toFixed(1)}</strong>
-                <span className={styles.voteCount}> | {filme.vote_count} votos</span>
+                <span className={styles.voteCount}> | {filme.vote_count ?? 0} votos</span>
               </div>
               <div className={styles.metaItem}>
                 <CalendarIcon className={`${styles.icon} ${styles.iconCalendar}`} />
                 <strong>{formatarData(filme.release_date)}</strong>
               </div>
-              {filme.runtime && (
+              {filme.runtime !== undefined && (
                 <div className={styles.metaItem}>
                   <ClockIcon className={`${styles.icon} ${styles.iconClock}`} />
                   <strong>{formatarDuracao(filme.runtime)}</strong>
@@ -95,7 +95,7 @@ export default async function DetalheFilme({ params }: Props) {
               )}
             </div>
 
-            {filme.genres && filme.genres.length > 0 && (
+            {filme.genres?.length ? (
               <div className={styles.genres}>
                 {filme.genres.map((genre) => (
                   <span key={genre.id} className={styles.genre}>
@@ -103,7 +103,7 @@ export default async function DetalheFilme({ params }: Props) {
                   </span>
                 ))}
               </div>
-            )}
+            ) : null}
           </div>
 
           <div className={styles.sinopseSection}>
@@ -178,7 +178,7 @@ export default async function DetalheFilme({ params }: Props) {
             )}
           </div>
 
-          {filme.production_companies && filme.production_companies.length > 0 && (
+          {filme.production_companies?.length ? (
             <div className={styles.production}>
               <h3 className={styles.sectionTitle}>Produção</h3>
               <div className={styles.productionList}>
@@ -189,7 +189,7 @@ export default async function DetalheFilme({ params }: Props) {
                 ))}
               </div>
             </div>
-          )}
+          ) : null}
         </div>
       </section>
     </main>

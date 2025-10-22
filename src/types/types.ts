@@ -17,7 +17,6 @@ export interface Filme {
     logo_path?: string;
     origin_country?: string;
   }[];
-  // Campos adicionais necessários
   tagline?: string;
   vote_count?: number;
   genres?: {
