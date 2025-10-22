@@ -6,7 +6,7 @@ export interface Filme {
   release_date: string;
   genre_ids: string[];
   vote_average: number;
-  runtime: string;
+  runtime: number;
   status: string;
   original_language: string;
   budget: number;

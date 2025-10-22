@@ -32,25 +32,21 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 }
 
 type Props = {
-  params: Promise<{
-    id: string;
-  }>;
+  params: { id: string };
 };
 
 export default async function DetalheFilme({ params }: Props) {
-  const { id } = await params;
+  const { id } = params;
   const filme = await getMovieDetails(Number(id));
 
-  if (!filme) {
-    return notFound();
-  }
+  if (!filme) return notFound();
 
-  const formatarData = (data: string) => {
+  const formatarData = (data?: string) => {
     if (!data) return "Data não disponível";
     return new Date(data).toLocaleDateString('pt-BR');
   };
 
-  const formatarDuracao = (runtime: string) => {
+  const formatarDuracao = (runtime?: number) => {
     if (!runtime) return "Duração não disponível";
     return `${runtime} minutos`;
   };
@@ -76,9 +72,9 @@ export default async function DetalheFilme({ params }: Props) {
         <div className={styles.info}>
           <div className={styles.header}>
             <h1 className={styles.titulo}>{filme.title}</h1>
-            
+
             {filme.tagline && (
-              <p className={styles.tagline}>"{filme.tagline}"</p>
+              <p className={styles.tagline}>&quot;{filme.tagline}&quot;</p>
             )}
 
             <div className={styles.metaInfo}>
@@ -128,7 +124,7 @@ export default async function DetalheFilme({ params }: Props) {
               </div>
               <div className={styles.detalheValor}>{filme.id}</div>
             </div>
-            
+
             {filme.status && (
               <div className={styles.detalheItem}>
                 <div className={styles.detalheLabel}>
@@ -138,7 +134,7 @@ export default async function DetalheFilme({ params }: Props) {
                 <div className={styles.detalheValor}>{filme.status}</div>
               </div>
             )}
-            
+
             {filme.original_language && (
               <div className={styles.detalheItem}>
                 <div className={styles.detalheLabel}>
@@ -150,7 +146,7 @@ export default async function DetalheFilme({ params }: Props) {
                 </div>
               </div>
             )}
-            
+
             {filme.budget > 0 && (
               <div className={styles.detalheItem}>
                 <div className={styles.detalheLabel}>
@@ -165,7 +161,7 @@ export default async function DetalheFilme({ params }: Props) {
                 </div>
               </div>
             )}
-            
+
             {filme.revenue > 0 && (
               <div className={styles.detalheItem}>
                 <div className={styles.detalheLabel}>
