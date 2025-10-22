@@ -1,6 +1,6 @@
 import styles from "../../page.module.css";
 import { getTopRatedMovies } from "@/lib/api/services";
-import Card from "../../components/card/page";
+import Card from "../../components/card/card";
 
 export const metadata = {
   title: "CineVerso | Mais Bem Avaliados",

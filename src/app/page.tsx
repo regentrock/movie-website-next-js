@@ -1,5 +1,5 @@
 import { getTrendingMovies } from "@/lib/api/services";
-import Card from "./components/card/page";
+import Card from "./components/card/card";
 import styles from "./page.module.css";
 
 export const metadata = {
