@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import styles from "./MovieDetails.module.css";
 import { getMovieDetails } from "@/lib/api/services";
+import { Filme } from "@/types/types";
 import { 
   StarIcon, 
   CalendarIcon, 
@@ -24,35 +25,36 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
     openGraph: {
       title: `${filme?.title || "Detalhes do Filme"} | CineVerso`,
       description: filme?.overview || "Saiba mais sobre este filme no CineVerso.",
-      images: [
-        `https://image.tmdb.org/t/p/w500${filme?.poster_path || ""}`,
-      ],
+      images: [`https://image.tmdb.org/t/p/w500${filme?.poster_path || ""}`],
     },
   };
 }
 
-// Tipagem correta para App Router Next.js 15
+// Props corrigidas
 type Props = {
-  params: {
-    id: string;
-  };
+  params: { id: string };
 };
 
 export default async function DetalheFilme({ params }: Props) {
   const { id } = params;
-  const filme = await getMovieDetails(Number(id));
+
+  // Corrigido: trata undefined retornado por getMovieDetails
+  const filme: Filme | null = (await getMovieDetails(Number(id))) || null;
 
   if (!filme) return notFound();
 
   const formatarData = (data?: string) => {
     if (!data) return "Data não disponível";
-    return new Date(data).toLocaleDateString("pt-BR");
+    return new Date(data).toLocaleDateString('pt-BR');
   };
 
   const formatarDuracao = (runtime?: number) => {
     if (!runtime) return "Duração não disponível";
     return `${runtime} minutos`;
   };
+
+  // Garante array vazio caso genres seja undefined
+  const genres = filme.genres || [];
 
   return (
     <main className={styles.container}>
@@ -86,12 +88,10 @@ export default async function DetalheFilme({ params }: Props) {
                 <strong>{filme.vote_average?.toFixed(1)}</strong>
                 <span className={styles.voteCount}> | {filme.vote_count} votos</span>
               </div>
-
               <div className={styles.metaItem}>
                 <CalendarIcon className={`${styles.icon} ${styles.iconCalendar}`} />
                 <strong>{formatarData(filme.release_date)}</strong>
               </div>
-
               {filme.runtime && (
                 <div className={styles.metaItem}>
                   <ClockIcon className={`${styles.icon} ${styles.iconClock}`} />
@@ -100,9 +100,9 @@ export default async function DetalheFilme({ params }: Props) {
               )}
             </div>
 
-            {filme.genres && filme.genres.length > 0 && (
+            {genres.length > 0 && (
               <div className={styles.genres}>
-                {filme.genres.map((genre) => (
+                {genres.map((genre) => (
                   <span key={genre.id} className={styles.genre}>
                     {genre.name}
                   </span>
@@ -159,9 +159,9 @@ export default async function DetalheFilme({ params }: Props) {
                   Orçamento
                 </div>
                 <div className={styles.detalheValor}>
-                  {filme.budget.toLocaleString("en-US", {
-                    style: "currency",
-                    currency: "USD",
+                  {filme.budget.toLocaleString('en-US', {
+                    style: 'currency',
+                    currency: 'USD'
                   })}
                 </div>
               </div>
@@ -174,9 +174,9 @@ export default async function DetalheFilme({ params }: Props) {
                   Receita
                 </div>
                 <div className={styles.detalheValor}>
-                  {filme.revenue.toLocaleString("en-US", {
-                    style: "currency",
-                    currency: "USD",
+                  {filme.revenue.toLocaleString('en-US', {
+                    style: 'currency',
+                    currency: 'USD'
                   })}
                 </div>
               </div>
