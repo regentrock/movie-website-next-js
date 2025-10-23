@@ -18,33 +18,42 @@ import {
 // 🔧 Força renderização dinâmica (necessário no Vercel)
 export const dynamic = "force-dynamic";
 
-// Metadata dinâmico
-export async function generateMetadata({ params }: { params: { id: string } }) {
+// ✅ Tipagem oficial do Next.js 15 para páginas dinâmicas
+interface PageProps {
+  params: { id: string };
+}
+
+// ✅ Metadata dinâmico corrigido
+export async function generateMetadata({ params }: PageProps) {
   try {
     const filme = await getMovieDetails(Number(params.id));
+    if (!filme) {
+      return {
+        title: "Filme não encontrado | CineVerso",
+        description: "Erro ao carregar informações do filme.",
+      };
+    }
+
     return {
-      title: `${filme?.title || "Detalhes do Filme"} | CineVerso`,
-      description: filme?.overview || "Saiba mais sobre este filme no CineVerso.",
+      title: `${filme.title || "Detalhes do Filme"} | CineVerso`,
+      description: filme.overview || "Saiba mais sobre este filme no CineVerso.",
       openGraph: {
-        title: `${filme?.title || "Detalhes do Filme"} | CineVerso`,
-        description: filme?.overview || "Saiba mais sobre este filme no CineVerso.",
-        images: [`https://image.tmdb.org/t/p/w500${filme?.poster_path || ""}`],
+        title: `${filme.title || "Detalhes do Filme"} | CineVerso`,
+        description: filme.overview || "Saiba mais sobre este filme no CineVerso.",
+        images: [`https://image.tmdb.org/t/p/w500${filme.poster_path || ""}`],
       },
     };
-  } catch {
+  } catch (error) {
+    console.error("Erro no generateMetadata:", error);
     return {
-      title: "Filme não encontrado | CineVerso",
-      description: "Erro ao carregar informações do filme.",
+      title: "Erro | CineVerso",
+      description: "Não foi possível carregar os metadados do filme.",
     };
   }
 }
 
-// Tipagem corrigida
-type Props = {
-  params: { id: string };
-};
-
-export default async function DetalheFilme({ params }: Props) {
+// ✅ Página principal do filme
+export default async function DetalheFilme({ params }: PageProps) {
   const { id } = params;
 
   let filme: Filme | null = null;
@@ -72,7 +81,7 @@ export default async function DetalheFilme({ params }: Props) {
   const formatarDuracao = (runtime?: number) =>
     runtime ? `${runtime} minutos` : "Duração não disponível";
 
-  const genres = filme.genres || [];
+  const genres = filme.genres ?? [];
 
   return (
     <main className={styles.container}>
@@ -113,17 +122,17 @@ export default async function DetalheFilme({ params }: Props) {
                   | {filme.vote_count} votos
                 </span>
               </div>
+
               <div className={styles.metaItem}>
                 <CalendarIcon
                   className={`${styles.icon} ${styles.iconCalendar}`}
                 />
                 <strong>{formatarData(filme.release_date)}</strong>
               </div>
+
               {filme.runtime && (
                 <div className={styles.metaItem}>
-                  <ClockIcon
-                    className={`${styles.icon} ${styles.iconClock}`}
-                  />
+                  <ClockIcon className={`${styles.icon} ${styles.iconClock}`} />
                   <strong>{formatarDuracao(filme.runtime)}</strong>
                 </div>
               )}
@@ -217,10 +226,7 @@ export default async function DetalheFilme({ params }: Props) {
               <h3 className={styles.sectionTitle}>Produção</h3>
               <div className={styles.productionList}>
                 {filme.production_companies.slice(0, 4).map((company) => (
-                  <span
-                    key={company.id}
-                    className={styles.productionCompany}
-                  >
+                  <span key={company.id} className={styles.productionCompany}>
                     {company.name}
                   </span>
                 ))}
