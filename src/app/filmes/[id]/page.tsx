@@ -18,15 +18,17 @@ import {
 // 🔧 Força renderização dinâmica (necessário no Vercel)
 export const dynamic = "force-dynamic";
 
-// ✅ Tipagem oficial do Next.js 15 para páginas dinâmicas
+// ✅ Tipagem atualizada para Next.js 15
 interface PageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 // ✅ Metadata dinâmico corrigido
 export async function generateMetadata({ params }: PageProps) {
   try {
-    const filme = await getMovieDetails(Number(params.id));
+    const { id } = await params; // Aguarda a Promise
+    const filme = await getMovieDetails(Number(id));
+    
     if (!filme) {
       return {
         title: "Filme não encontrado | CineVerso",
@@ -54,7 +56,7 @@ export async function generateMetadata({ params }: PageProps) {
 
 // ✅ Página principal do filme
 export default async function DetalheFilme({ params }: PageProps) {
-  const { id } = params;
+  const { id } = await params; // Aguarda a Promise
 
   let filme: Filme | null = null;
 
