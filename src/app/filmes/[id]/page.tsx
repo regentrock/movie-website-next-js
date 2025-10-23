@@ -1,23 +1,25 @@
+import { use } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import styles from "./MovieDetails.module.css";
 import { getMovieDetails } from "@/lib/api/services";
 import { Filme } from "@/types/types";
-import { 
-  StarIcon, 
-  CalendarIcon, 
-  ClockIcon, 
+import {
+  StarIcon,
+  CalendarIcon,
+  ClockIcon,
   BookIcon,
   IDIcon,
   ChartIcon,
   LanguageIcon,
-  MoneyIcon 
+  MoneyIcon,
 } from "../../components/Icons/Icons";
 
-// Metadata dinâmico
-export async function generateMetadata({ params }: { params: { id: string } }) {
-  const filme = await getMovieDetails(Number(params.id));
+// ✅ Corrigido: params agora é Promise<{ id: string }>
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const filme = await getMovieDetails(Number(id));
 
   return {
     title: `${filme?.title || "Detalhes do Filme"} | CineVerso`,
@@ -30,15 +32,13 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
   };
 }
 
-// Props corretas para App Router
+// ✅ Corrigido: props com Promise + use()
 type Props = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 export default async function DetalheFilme({ params }: Props) {
-  const { id } = params;
-
-  // Garante que filme seja Filme ou null
+  const { id } = use(params); // resolve a Promise conforme o App Router do Next 15
   const filme: Filme | null = (await getMovieDetails(Number(id))) || null;
   if (!filme) return notFound();
 
@@ -48,7 +48,6 @@ export default async function DetalheFilme({ params }: Props) {
   const formatarDuracao = (runtime?: number) =>
     runtime ? `${runtime} minutos` : "Duração não disponível";
 
-  // Garante array vazio se genres for undefined
   const genres = filme.genres || [];
 
   return (
