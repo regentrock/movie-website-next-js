@@ -1,0 +1,577 @@
+/* ArticlePage.module.css */
+.articlePage {
+  min-height: 100vh;
+  background-color: #f3f0e9;
+}
+
+.breadcrumb {
+  background: rgba(243, 240, 233, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #e0ddd4;
+  padding: 1.25rem 0;
+  font-family: "Inter", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.breadcrumbLink {
+  color: #2c5530;
+  transition: all 0.3s ease;
+  position: relative;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.breadcrumbLink:hover {
+  color: #1a1a1a;
+  transform: translateY(-1px);
+}
+
+.breadcrumbLink::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #2c5530;
+  transition: width 0.3s ease;
+}
+
+.breadcrumbLink:hover::after {
+  width: 100%;
+}
+
+.breadcrumbSeparator {
+  margin: 0 0.75rem;
+  color: #8a877e;
+  font-weight: 300;
+}
+
+.breadcrumbCurrent {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.articleHero {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  color: white;
+  padding: 5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.articleHero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Ccircle cx='40' cy='40' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.heroContent {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.articleCategory {
+  display: inline-block;
+  background: linear-gradient(135deg, #2c5530, #4a7c59);
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 25px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+  font-family: "Inter", sans-serif;
+  box-shadow: 0 4px 15px rgba(44, 85, 48, 0.3);
+}
+
+.articleTitle {
+  font-size: 3.5rem;
+  margin-bottom: 2rem;
+  line-height: 1.1;
+  font-weight: 700;
+  font-family: "Merriweather", serif;
+  background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+.articleDescription {
+  font-size: 1.4rem;
+  color: #e0e0e0;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  font-weight: 400;
+  font-family: "Inter", sans-serif;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.articleMeta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  color: #b0b0b0;
+}
+
+.articleDate {
+  font-weight: 500;
+}
+
+.readingTime {
+  font-weight: 400;
+}
+
+.article {
+  padding: 5rem 0;
+  background-color: #f3f0e9;
+}
+
+.articleContent {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.contentWrapper {
+  background: #ffffff;
+  padding: 4rem;
+  border-radius: 16px;
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.08),
+    0 1px 4px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e0ddd4;
+  position: relative;
+}
+
+.contentWrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #2c5530, #4a7c59, #6ba368);
+  border-radius: 16px 16px 0 0;
+}
+
+.contentWrapper h1,
+.contentWrapper h2,
+.contentWrapper h3,
+.contentWrapper h4 {
+  font-family: "Merriweather", serif;
+  color: #1a1a1a;
+  margin: 2.5rem 0 1.25rem;
+  line-height: 1.3;
+}
+
+.contentWrapper h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  border-bottom: 2px solid #f3f0e9;
+  padding-bottom: 0.5rem;
+}
+
+.contentWrapper h2 {
+  font-size: 1.875rem;
+  font-weight: 600;
+  color: #2c5530;
+}
+
+.contentWrapper h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.contentWrapper h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #4a4a4a;
+}
+
+.contentWrapper p {
+  font-family: "Inter", sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: #4a4a4a;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+}
+
+.contentWrapper ul, 
+.contentWrapper ol {
+  font-family: "Inter", sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: #4a4a4a;
+  margin: 1.5rem 0;
+  padding-left: 2.5rem;
+}
+
+.contentWrapper li {
+  margin-bottom: 0.75rem;
+  position: relative;
+}
+
+.contentWrapper ul li::before {
+  content: '•';
+  color: #2c5530;
+  font-weight: bold;
+  position: absolute;
+  left: -1.25rem;
+}
+
+.contentWrapper ol {
+  counter-reset: list-counter;
+}
+
+.contentWrapper ol li {
+  counter-increment: list-counter;
+}
+
+.contentWrapper ol li::before {
+  content: counter(list-counter) '.';
+  color: #2c5530;
+  font-weight: 600;
+  position: absolute;
+  left: -1.5rem;
+}
+
+.contentWrapper blockquote {
+  border-left: 4px solid #2c5530;
+  padding: 2rem 2.5rem;
+  margin: 2.5rem 0;
+  background: linear-gradient(135deg, #f8f7f2 0%, #f3f0e9 100%);
+  border-radius: 0 12px 12px 0;
+  font-family: "Merriweather", serif;
+  font-style: italic;
+  font-size: 1.3rem;
+  color: #2d2d2d;
+  line-height: 1.6;
+  position: relative;
+}
+
+.contentWrapper blockquote::before {
+  content: '"';
+  font-size: 4rem;
+  color: #2c5530;
+  opacity: 0.2;
+  position: absolute;
+  top: 0.5rem;
+  left: 1rem;
+  font-family: "Georgia", serif;
+}
+
+.contentWrapper code {
+  background: #f8f7f2;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-family: "Monaco", "Consolas", monospace;
+  font-size: 0.9em;
+  color: #2c5530;
+  border: 1px solid #e0ddd4;
+}
+
+.contentWrapper pre {
+  background: #1a1a1a;
+  color: #f3f0e9;
+  padding: 1.5rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  font-family: "Monaco", "Consolas", monospace;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.articleFooter {
+  max-width: 800px;
+  margin: 4rem auto 0;
+  background-color: #f3f0e9;
+}
+
+.articleActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.5rem 0;
+  border-top: 1px solid #e0ddd4;
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: none;
+  color: rgb(92, 78, 72);
+  padding: 1rem 2rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.backButton:hover {
+  color: rgb(71, 54, 50);
+  transition: 0.2s;
+}
+
+.shareSection {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.shareButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #e0ddd4;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #666;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.shareButton:hover {
+  background: #2c5530;
+  color: white;
+  border-color: #2c5530;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(44, 85, 48, 0.3);
+}
+
+.relatedArticles {
+  background-color: #f3f0e9;
+  padding: 5rem 0;
+  border-top: 1px solid #e0ddd4;
+}
+
+.relatedHeader {
+  text-align: center;
+  margin-bottom: 4rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.relatedTitle {
+  font-size: 2.75rem;
+  margin-bottom: 1.5rem;
+  color: #1a1a1a;
+  font-weight: 700;
+  font-family: "Merriweather", serif;
+  letter-spacing: -0.02em;
+}
+
+.relatedSubtitle {
+  font-size: 1.2rem;
+  color: #666;
+  line-height: 1.5;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+}
+
+.relatedGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 2.5rem;
+}
+
+.relatedCard {
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  border: 1px solid #e0ddd4;
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.06),
+    0 1px 4px rgba(0, 0, 0, 0.03);
+  text-decoration: none;
+  color: inherit;
+}
+
+.relatedCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.12),
+    0 8px 20px rgba(0, 0, 0, 0.08);
+  border-color: #2c5530;
+}
+
+.relatedCardContent {
+  padding: 2.5rem;
+}
+
+.relatedCard h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1.25rem;
+  color: #1a1a1a;
+  line-height: 1.4;
+  font-weight: 600;
+  font-family: "Merriweather", serif;
+  letter-spacing: -0.01em;
+}
+
+.relatedCard p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  font-family: "Inter", sans-serif;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.relatedMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.relatedDate {
+  font-size: 0.85rem;
+  color: #2c5530;
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
+}
+
+.relatedReadMore {
+  font-size: 0.85rem;
+  color: #1a1a1a;
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
+  transition: all 0.3s ease;
+}
+
+.relatedCard:hover .relatedReadMore {
+  color: #2c5530;
+  transform: translateX(6px);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .articleTitle {
+    font-size: 2.5rem;
+  }
+
+  .articleDescription {
+    font-size: 1.2rem;
+  }
+
+  .articleMeta {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .contentWrapper {
+    padding: 2.5rem 2rem;
+    margin: 0 1rem;
+  }
+
+  .contentWrapper h1 {
+    font-size: 2rem;
+  }
+
+  .contentWrapper h2 {
+    font-size: 1.625rem;
+  }
+
+  .contentWrapper h3 {
+    font-size: 1.375rem;
+  }
+
+  .contentWrapper p {
+    font-size: 1.05rem;
+  }
+
+  .articleActions {
+    flex-direction: column;
+    gap: 2rem;
+    align-items: flex-start;
+    padding: 2rem 1rem;
+  }
+
+  .shareSection {
+    align-self: stretch;
+    justify-content: space-between;
+  }
+
+  .relatedGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 0 1rem;
+  }
+
+  .relatedTitle {
+    font-size: 2.25rem;
+  }
+
+  .relatedCardContent {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .articleHero {
+    padding: 4rem 0;
+  }
+
+  .articleTitle {
+    font-size: 2rem;
+  }
+
+  .articleDescription {
+    font-size: 1.1rem;
+  }
+
+  .contentWrapper {
+    padding: 2rem 1.5rem;
+    border-radius: 12px;
+    margin: 0 0.5rem;
+  }
+
+  .relatedArticles {
+    padding: 4rem 0;
+  }
+
+  .relatedTitle {
+    font-size: 2rem;
+  }
+
+  .relatedCardContent {
+    padding: 1.75rem;
+  }
+
+  .backButton {
+    padding: 0.875rem 1.75rem;
+    font-size: 0.95rem;
+  }
+}

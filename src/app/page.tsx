@@ -1,4 +1,3 @@
-import { getTrendingMovies } from "@/lib/api/services";
 import Card from "./components/card/card";
 import styles from "./page.module.css";
 
@@ -9,17 +8,12 @@ export const metadata = {
 
 
 export default async function Home() {
-  const filmes = await getTrendingMovies();
 
   return (
-    <main className={styles.main}>
-      <h1 className={styles.title}>Filmes em Alta</h1>
-
-      <div className={styles.grid}>
-        {filmes.map((filme) => (
-          <Card key={filme.id} filme={filme} />
-        ))}
-      </div>
-    </main>
+    <>
+      <main className={styles.main}>
+        <Card/>
+      </main>
+    </>
   );
 }
